@@ -21,7 +21,7 @@ const Header = (props: Props) => {
         <div className="flex gap-6 items-center">
           <ShiftingDropDown></ShiftingDropDown>
           <div className="relative">
-            <Ticket className="text-yello-500 absolute top-0"></Ticket>
+            {/* <Ticket className="text-yello-500 absolute top-0"></Ticket> */}
             <Link href={"#"}>Short Course</Link>
           </div>
 

@@ -10,8 +10,8 @@ const Page = (props: Props) => {
       <div className="flex flex-col items-center justify-center  ">
         <img
           className="w-full h-36 "
-          src="images/logo/logo.svg"
-          alt="nss-logo-png"
+          src="/images/logo/logo.svg"
+          alt="DigiBox Logo"
         />
       </div>
 
