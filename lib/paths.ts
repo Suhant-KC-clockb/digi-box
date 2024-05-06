@@ -1,14 +1,11 @@
 export const paths = {
   auth: {
-    signin: "/",
-    register: "/register",
+    signin: "/auth/login",
     error: "/auth/error",
   },
   dashboard: {
     home: "/dashboard",
     profile: "/dashboard/profile",
-    playVideo: "/dashboard/play-video",
-    certificate: "/dashboard/certificate",
   },
 };
 

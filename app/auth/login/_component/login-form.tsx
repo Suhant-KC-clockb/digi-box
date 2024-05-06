@@ -36,12 +36,11 @@ const LoginForm = () => {
   async function onSubmit(values: z.infer<typeof registerSchema>) {
     try {
       await login(values).then((response) => {
-        toast.success("Welcome to Digi Box");
-
-        console.log(response);
         if (response?.error) {
           toast.error(response.error);
+          return;
         }
+        toast.success("Welcome to Digi Box");
       });
     } catch (error: any) {
       toast.error(`${error.message}`);
