@@ -135,7 +135,7 @@ const SCNSingleImagePicker = ({
             >
               <img
                 className="w-auto h-32"
-                src={"/Images/upload-image.svg"}
+                src={"/images/upload-image.svg"}
                 alt=""
               />
               <p>Select File</p>

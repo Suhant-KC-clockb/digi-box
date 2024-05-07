@@ -28,6 +28,7 @@ export const CourseSchema = z.object({
   previewURL: z.string().url().min(1, "Preview URL is required"),
   price: z.string().min(1, "Price is required"),
   duration: z.string(),
+  courseBenefit: z.string().optional(),
   curriculum: z.array(curriculumSchema),
   // curriculum: z.any(),
   status: z.boolean().optional(),

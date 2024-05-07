@@ -41,6 +41,7 @@ const createHandler = async (data: InputType): Promise<ReturnType> => {
       title: data.title,
       duration: data.duration,
       description: data.description,
+      courseBenefit: data.courseBenefit,
       slug: slug,
       image: data.image ?? "",
       language: data.language,

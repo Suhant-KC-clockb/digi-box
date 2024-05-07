@@ -11,16 +11,14 @@ import React, { useState } from "react";
 import { CourseSchema } from "@/actions/course/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { nullable, z } from "zod";
+import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import SCNSingleImagePicker from "@/components/image-picker/SCNSingleImagePicker";
-import Editor from "@/components/CkEditor";
 import CurriculumSection from "./curriculum-section";
-import { Button } from "@/components/ui/button";
 import { useActions } from "@/hooks/use-action";
 import { createCourse, editCourse } from "@/actions/course";
 import { toast } from "sonner";
-import { CourseCategory, Course, Curriculum, Lesson } from "@prisma/client";
+import { CourseCategory, Course } from "@prisma/client";
 import {
   Select,
   SelectContent,
@@ -29,14 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Plus, TrashIcon } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import AddNewCategory from "./add-new-category";
 import { deleteCourseCat } from "@/actions/course-category";
 import { LoadingButton } from "@/components/ui/loading-button";
@@ -94,31 +85,28 @@ const CourseForm = (props: Props) => {
     },
   });
   const onSubmit = async (values: z.infer<typeof CourseSchema>) => {
-    // if (props.type == "add") {
-    //   let courseImageUrl;
-    //   let instructorImageUrl;
-    //   if (values.image) {
-    //     courseImageUrl = await uploadToMinIO(values.image, "course");
-    //   }
-    //   execute({
-    //     ...values,
-    //     image: courseImageUrl,
-    //   });
-    // } else {
-    //   let courseImageUrl = null;
-    //   if (values.image != `${MINIOURL}/${props.course?.image}`) {
-    //     courseImageUrl = await uploadToMinIO(values.image, "course");
-    //   }
-    //   editExecute({
-    //     id: props.course?.id,
-    //     ...values,
-    //     image: courseImageUrl ?? props.course?.image,
-    //   });
-    // }
-  };
-
-  const handleEditorChange = (newContent: string) => {
-    form.setValue("description", newContent);
+    toast.success("Value submitted");
+    if (props.type == "add") {
+      let courseImageUrl;
+      let instructorImageUrl;
+      if (values.image) {
+        courseImageUrl = await uploadToMinIO(values.image, "course");
+      }
+      execute({
+        ...values,
+        image: courseImageUrl,
+      });
+    } else {
+      let courseImageUrl = null;
+      if (values.image != `${MINIOURL}/${props.course?.image}`) {
+        courseImageUrl = await uploadToMinIO(values.image, "course");
+      }
+      editExecute({
+        id: props.course?.id,
+        ...values,
+        image: courseImageUrl ?? props.course?.image,
+      });
+    }
   };
 
   const onAddCategoryClick = () => {
@@ -283,39 +271,12 @@ const CourseForm = (props: Props) => {
               schemaName="image"
               variant="imageBox"
             />
-
-            {/* <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="mt-2">
-                    <FormLabel>Description</FormLabel>
-                  </div>
-                  <FormControl>
-                    <div className="text-black">
-                      <Editor
-                        value={field.value}
-                        name="description"
-                        onChange={handleEditorChange}
-                        id="description"
-                        disabled={form.formState.isSubmitting}
-                        className=" "
-                      ></Editor>
-                    </div>
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
-
             <ReactQuillEditor name={"description"}></ReactQuillEditor>
           </div>
         </div>
         <div className="flex gap-4">
           <div className="bg-secondary p-6 rounded-lg  flex flex-col gap-y-4 w-1/2">
-            {/* <ReactQuillEditor name={""}></ReactQuillEditor> */}
+            <ReactQuillEditor name={"courseBenefit"}></ReactQuillEditor>
           </div>
           <CurriculumSection />
         </div>
