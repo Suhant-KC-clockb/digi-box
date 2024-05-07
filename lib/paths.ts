@@ -5,7 +5,7 @@ export const paths = {
   },
   dashboard: {
     home: "/dashboard",
-    profile: "/dashboard/profile",
+    courses: "/dashboard/courses",
   },
 };
 

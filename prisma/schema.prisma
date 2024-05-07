@@ -20,3 +20,51 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Course {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  description      String?
+  language         String
+  category         CourseCategory @relation(fields: [courseCategoryId], references: [id])
+  image            String
+  previewUrl       String
+  price            Float
+  duration         String
+  enrolled         Int            @default(0)
+  curriculum       Curriculum[]
+  slug             String?
+  courseBenefit    String?
+  status           Boolean        @default(false)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  courseCategoryId String         @db.ObjectId
+}
+
+model CourseCategory {
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  title  String
+  slug   String   @unique
+  Course Course[]
+}
+
+model Curriculum {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  section   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Course    Course?  @relation(fields: [courseId], references: [id])
+  courseId  String?  @db.ObjectId
+  lesson    Lesson[]
+}
+
+model Lesson {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  videoUrl     String
+  slug         String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  Curriculum   Curriculum? @relation(fields: [curriculumId], references: [id])
+  curriculumId String?     @db.ObjectId
+}
