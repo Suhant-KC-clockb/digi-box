@@ -2,8 +2,11 @@
 import React from "react";
 import SectionOneCard from "./section-one-card";
 import { Book, Briefcase, Clock, PersonStanding } from "lucide-react";
+import { LandingSection1, Section1ContainerType } from "@prisma/client";
 
-type Props = {};
+type Props = {
+  section1: LandingSection1[];
+};
 
 const SectionOne = (props: Props) => {
   const data = [
@@ -17,14 +20,20 @@ const SectionOne = (props: Props) => {
   const colors = ["blue", "orange", "green", "red"];
 
   return (
-    <div className="container my-10">
-      <div className=" flex gap-x-4 w-full justify-evenly items-start ">
-        <div className="w-full">
-          <SectionOneCard />
+    <div className="container my-20">
+      <div className="grid grid-cols-3 gap-4">
+        <div className="col-span-2">
+          <SectionOneCard
+            container={props.section1.find(
+              (element) => element.type === Section1ContainerType.Container1
+            )}
+            type="single"
+          ></SectionOneCard>
         </div>
-        <div className="flex flex-col gap-4 w-full ">
-          <SectionOneCard />
-          <SectionOneCard />
+        <div className="flex flex-col ">
+          <SectionOneCard type="single"></SectionOneCard>
+          <div className="h-2"></div>
+          <SectionOneCard type="single"></SectionOneCard>
         </div>
       </div>
 

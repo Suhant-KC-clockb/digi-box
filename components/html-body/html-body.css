@@ -1,0 +1,8 @@
+@import "react-quill/dist/quill.bubble.css";
+.ql-editor {
+  height: auto !important;
+  font-size: 1.2rem;
+  max-width: 100%;
+  overflow: hidden;
+  
+}

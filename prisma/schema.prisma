@@ -68,3 +68,22 @@ model Lesson {
   Curriculum   Curriculum? @relation(fields: [curriculumId], references: [id])
   curriculumId String?     @db.ObjectId
 }
+
+model LandingSection1 {
+  id          String                @id @default(auto()) @map("_id") @db.ObjectId
+  image       String?
+  images      String[]
+  redirectUrl String?
+  type        Section1ContainerType
+  count       String?
+}
+
+enum Section1ContainerType {
+  Container1
+  Container2
+  Container3
+  Course
+  IndustryPartner
+  JobPlacement
+  YearsExperience
+}

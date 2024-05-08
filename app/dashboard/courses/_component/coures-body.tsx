@@ -50,7 +50,7 @@ const CourseBody = (props: Props) => {
               onChange={(e) => setSearchQuery(e.target.value)}
             ></Input>
             <Link href={paths.dashboard.courses + "/add"}>
-              <Button className="bg-slate-500">Add Course</Button>
+              <Button>Add Course</Button>
             </Link>
           </div>
         </div>

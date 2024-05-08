@@ -1,37 +1,35 @@
 "use client";
+import ImageCarousel from "@/components/ImageCarousel";
+import { cn } from "@/lib/utils";
+import { LandingSection1 } from "@prisma/client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import React from "react";
 
-type Props = {};
+type Props = {
+  type: "single" | "double";
+  container?: LandingSection1;
+};
 
 const SectionOneCard = (props: Props) => {
   return (
-    <motion.div
-      variants={{
-        initial: {
-          scale: 0.5,
-          y: 50,
-          opacity: 0,
-        },
-        animate: {
-          scale: 1,
-          y: 0,
-          opacity: 1,
-        },
-      }}
-      transition={{
-        type: "spring",
-        mass: 3,
-        stiffness: 400,
-        damping: 50,
-      }}
-      className="h-full"
-    >
-      <img
-        className="w-full rounded-lg object-cover "
-        src="https://images.unsplash.com/photo-1488998427799-e3362cec87c3"
-      ></img>
-    </motion.div>
+    <Link target="_blank" href={props.container?.redirectUrl ?? "#"}>
+      {/* Single or multiple image check*/}
+      {props.container?.images ? (
+        <>
+          <ImageCarousel
+            slug={"Banner image 1"}
+            imageList={props.container?.images}
+          />
+        </>
+      ) : (
+        <img
+          className="w-full rounded-lg object-cover h-auto"
+          src="https://images.unsplash.com/photo-1488998427799-e3362cec87c3"
+          alt="Placeholder image"
+        />
+      )}
+    </Link>
   );
 };
 

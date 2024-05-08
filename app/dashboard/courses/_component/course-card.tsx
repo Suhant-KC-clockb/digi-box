@@ -12,6 +12,7 @@ import {
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { MINIOURL } from "@/constant/minio";
+import { paths } from "@/lib/paths";
 type Props = {
   course: Course;
 };
@@ -34,7 +35,7 @@ const CourseCard = ({ course }: Props) => {
             <Menu size={18}></Menu>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Link href={`/dashboard/course/edit?id=${course.id}`}>
+            <Link href={paths.dashboard.courses + `/edit?id=${course.id}`}>
               <DropdownMenuItem>Edit</DropdownMenuItem>
             </Link>
             <DropdownMenuItem onClick={onDeletePressed}>

@@ -69,6 +69,7 @@ const CourseForm = (props: Props) => {
   const form = useForm<z.infer<typeof CourseSchema>>({
     resolver: zodResolver(CourseSchema),
     defaultValues: {
+      courseBenefit: props.course?.courseBenefit ?? undefined,
       title: props.course?.title ?? "",
       description: props.course?.description ?? "",
       language: props.course?.language ?? "",
@@ -85,10 +86,8 @@ const CourseForm = (props: Props) => {
     },
   });
   const onSubmit = async (values: z.infer<typeof CourseSchema>) => {
-    toast.success("Value submitted");
     if (props.type == "add") {
       let courseImageUrl;
-      let instructorImageUrl;
       if (values.image) {
         courseImageUrl = await uploadToMinIO(values.image, "course");
       }
@@ -271,12 +270,19 @@ const CourseForm = (props: Props) => {
               schemaName="image"
               variant="imageBox"
             />
-            <ReactQuillEditor name={"description"}></ReactQuillEditor>
+            <ReactQuillEditor
+              name={"description"}
+              label={"Description"}
+            ></ReactQuillEditor>
           </div>
         </div>
         <div className="flex gap-4">
           <div className="bg-secondary p-6 rounded-lg  flex flex-col gap-y-4 w-1/2">
-            <ReactQuillEditor name={"courseBenefit"}></ReactQuillEditor>
+            <div className="text-2xl font-semibold">Course Benefits</div>
+            <ReactQuillEditor
+              name={"courseBenefit"}
+              label={"Course Benefit"}
+            ></ReactQuillEditor>
           </div>
           <CurriculumSection />
         </div>

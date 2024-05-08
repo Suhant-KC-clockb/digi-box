@@ -2,7 +2,14 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import { BarChart, Book, BookCheck, Computer, User } from "lucide-react";
+import {
+  BarChart,
+  Book,
+  BookCheck,
+  Computer,
+  Settings,
+  User,
+} from "lucide-react";
 import { SidebarItem } from "@/components/side-bar/side-bar-item";
 import { paths } from "@/lib/paths";
 
@@ -18,6 +25,11 @@ const guestRoutes = [
     icon: Book,
     label: "Courses",
     href: paths.dashboard.courses,
+  },
+  {
+    icon: Settings,
+    label: "Site Setting",
+    href: paths.dashboard.siteSetting,
   },
 ];
 const Sidebar = (props: Props) => {

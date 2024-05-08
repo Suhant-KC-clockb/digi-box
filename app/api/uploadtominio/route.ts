@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import minioClient from "@/lib/minioClient";
+import { bucketName } from "@/constant/minio";
 export const dynamic = "force-dynamic";
 export async function POST(request: NextRequest) {
   console.log("Uploading Document");
@@ -16,8 +17,7 @@ export async function POST(request: NextRequest) {
   console.log("uploadType:", uploadType);
   console.log("files:", files);
   try {
-    const bucketName =
-      process.env.NODE_ENV == "production" ? "digibox" : "test_digi"; // Replace with your bucket name
+    // Replace with your bucket name
     const uploadedFileNames = [];
     // Process and store each file individually
     for (let i = 0; i < files.length; i++) {

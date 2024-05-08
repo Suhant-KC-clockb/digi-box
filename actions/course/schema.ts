@@ -30,6 +30,5 @@ export const CourseSchema = z.object({
   duration: z.string(),
   courseBenefit: z.string().optional(),
   curriculum: z.array(curriculumSchema),
-  // curriculum: z.any(),
   status: z.boolean().optional(),
 });

@@ -6,6 +6,7 @@ export const paths = {
   dashboard: {
     home: "/dashboard",
     courses: "/dashboard/courses",
+    siteSetting:"/dashboard/site-setting"
   },
 };
 

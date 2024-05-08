@@ -11,6 +11,7 @@ import { createSlug } from "@/utils/create-slug";
 import { Curriculum } from "@prisma/client";
 import { bucketName } from "@/constant/minio";
 import minioClient from "@/lib/minioClient";
+import { paths } from "@/lib/paths";
 
 const createHandler = async (data: InputType): Promise<ReturnType> => {
   const session = await auth();
@@ -71,8 +72,8 @@ const createHandler = async (data: InputType): Promise<ReturnType> => {
     });
     return createdCurriculum;
   });
-  revalidatePath("/dashboard/course");
-  redirect("/dashboard/course");
+  revalidatePath(paths.dashboard.courses);
+  redirect(paths.dashboard.courses);
 };
 
 const editHandler = async (data: InputType): Promise<ReturnType> => {
@@ -209,8 +210,8 @@ const editHandler = async (data: InputType): Promise<ReturnType> => {
   });
 
   // Perform any additional actions after updating/creating curriculum and lessons (if needed)
-  revalidatePath("/dashboard/course");
-  redirect("/dashboard/course");
+  revalidatePath(paths.dashboard.courses);
+  redirect(paths.dashboard.courses);
 };
 
 export const deleteCourse = async (id: string) => {
@@ -225,7 +226,11 @@ export const deleteCourse = async (id: string) => {
       return false;
     }
 
-    await minioClient.removeObject(bucketName, checkExistingCourse.image);
+    try {
+      await minioClient.removeObject(bucketName, checkExistingCourse.image);
+    } catch (error) {
+      console.log("Unable to delete object");
+    }
 
     await db.course.delete({
       where: { id },
@@ -234,9 +239,10 @@ export const deleteCourse = async (id: string) => {
       },
     });
 
-    revalidatePath("/dashboard/course");
+    revalidatePath(paths.dashboard.courses);
     return true;
   } catch (error) {
+    console.log(error);
     return false;
   }
 };

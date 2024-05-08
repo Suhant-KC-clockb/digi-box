@@ -2,13 +2,21 @@ import "react-quill/dist/quill.snow.css";
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import dynamic from "next/dynamic";
+import { Label } from "../ui/label";
+import { FormMessage } from "../ui/form";
 
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
   loading: () => <>loading</>,
 });
 
-const ReactQuillEditor = ({ name }: { name: string }) => {
+const ReactQuillEditor = ({
+  name,
+  label,
+}: {
+  name: string;
+  label?: string | undefined | null;
+}) => {
   const {
     control,
     setValue,
@@ -46,18 +54,25 @@ const ReactQuillEditor = ({ name }: { name: string }) => {
     toolbar: toolbarOptions,
   };
 
+
   return (
-    <div id="editor" className="bg-white">
+    <div className="flex flex-col gap-4">
+      {label && <Label>{label}</Label>}
       <Controller
         name={name}
         control={control}
         render={({ field, fieldState: { error } }) => (
-          <ReactQuill
-            modules={myModule}
-            theme="snow"
-            value={field.value}
-            onChange={field.onChange}
-          />
+          <>
+            <div className="bg-white">
+              <ReactQuill
+                modules={myModule}
+                theme="snow"
+                value={field.value}
+                onChange={field.onChange}
+              />
+            </div>
+            {error && <FormMessage>{error?.message}</FormMessage>}
+          </>
         )}
       />
     </div>
